@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { PenBox } from "lucide-react";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import UserMenu from "./user-menu";
 
 export default function Header() {
   return (
@@ -13,6 +15,7 @@ export default function Header() {
           width={"150"}
           height={"60"}
           className="h-20 w-auto ml-5"
+          priority={true}
         />
       </Link>
 
@@ -23,7 +26,15 @@ export default function Header() {
             Create Events
           </Button>
         </Link>
-        <Button variant="outline">Login</Button>
+        <SignedOut>
+          {/* <SignInButton forceRedirectUrl="/dashboard"> */}
+          <SignInButton>
+            <Button variant="outline">Login</Button>
+          </SignInButton>
+        </SignedOut>
+        <SignedIn>
+          <UserMenu />
+        </SignedIn>
       </div>
     </nav>
   );
